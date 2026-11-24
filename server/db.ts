@@ -141,7 +141,7 @@ export const db = makeDatabase(runQuery);
 
 export async function initDatabase() {
   if (pool) {
-    await pool.query(`
+    const schema = `
       CREATE TABLE IF NOT EXISTS categories (
         id SERIAL PRIMARY KEY, name TEXT NOT NULL, slug TEXT NOT NULL UNIQUE,
         description TEXT NOT NULL DEFAULT '', image TEXT NOT NULL DEFAULT '', sort_order INTEGER NOT NULL DEFAULT 0
@@ -187,7 +187,10 @@ export async function initDatabase() {
         role TEXT NOT NULL DEFAULT 'ADMIN', created_at TEXT NOT NULL DEFAULT (CURRENT_TIMESTAMP::text)
       );
       CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
-    `);
+    `;
+    for (const statement of schema.split(';').map((part) => part.trim()).filter(Boolean)) {
+      await pool.query(statement);
+    }
     return;
   }
 

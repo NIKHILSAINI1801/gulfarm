@@ -7,9 +7,10 @@ import {defineConfig} from 'vite';
 export default defineConfig(() => {
   const isVercelBuild = process.env.VERCEL === '1' || process.env.VERCEL === 'true';
   const buildDir = path.resolve(__dirname, isVercelBuild ? 'public' : 'dist');
+  const publicDir: string | false = isVercelBuild ? false : 'public';
 
   return {
-    publicDir: isVercelBuild ? false : 'public',
+    publicDir,
     plugins: [
       react(),
       tailwindcss(),
