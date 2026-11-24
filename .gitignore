@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.vercel/
+magestic.db*
+/public/catalogue.pdf
+/public/index.html
+/public/src/assets/
+/public/assets/index-*.js
+/public/assets/index-*.css
+/public/uploads/
+.DS_Store
+*.log
+.env*
+!.env.example
